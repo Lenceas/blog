@@ -40,7 +40,9 @@ Vue.prototype.$msg.error = function (msg) {
 }
 Vue.config.productionTip = false
 Vue.prototype.$api = axios
-axios.defaults.baseURL = 'http://localhost:8079/api/v1'
+// 本地开发环境 'http://localhost:8079/api/v1'
+// 生产环境 'http://api.lujiesheng.cn/api/v1'
+axios.defaults.baseURL = 'http://api.lujiesheng.cn/api/v1'
 
 new Vue({
   router,
