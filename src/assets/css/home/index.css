@@ -1,0 +1,21 @@
+.home-main {
+    background-color: #e9eef3;
+    color: #333;
+    text-align: center;
+    line-height: 100%;
+    padding: 0px 0px;
+    width: 100%;
+    height: inherit;
+    position: relative;
+    margin: 0 auto;
+    background: #56514d url(../../images/loginbg.jpg) no-repeat center center;
+}
+
+.home-cmain{
+    height: 90%;
+}
+
+.el-footer{
+    height: 10%;
+    padding-top: 20px;
+}
