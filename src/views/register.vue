@@ -3,7 +3,7 @@
     <el-main class="login_wrap">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <h2>博客后台管理系统</h2>
+          <h2>Lenceas.Blog</h2>
         </div>
         <div class="body-card">
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" status-icon:true class="demo-ruleForm">
