@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-import './assets/css/all.css'
+import './assets/css/public/all.css'
 import ElementUI, {
   Message
 } from 'element-ui'

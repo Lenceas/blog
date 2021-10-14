@@ -1,53 +1,15 @@
-.home-container {
-    height: 100%;
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 200px;
+    margin: 0;
 }
 
-.home-header {
-    background-color: #fff;
-    color: #333;
-    text-align: center;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    border: 1px rgb(228, 226, 226) solid;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
 }
 
-.home-main {
-    background-color: #fff;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-}
-
-.home-aside {
-    display: flex;
-    width: 200px !important;
-}
-
-.home-menu{
-    width: 200px !important;
-}
-
-/* 修改导航菜单栏悬浮时的背景颜色 */
-.el-submenu__title:hover,
-.el-menu-item:focus,
-.el-menu-item:hover {
-    background-color: rgb(58, 78, 104) !important;
-}
-
-/* 导航二级菜单栏点击之后的一像素边的问题 */
-.el-menu {
-    border-right: none;
-}
-
-/* 导航栏点击后,左边的颜色设置 */
-.el-menu-item.is-active {
-    border-left: solid 3px #26a1fa;
-}
-
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px !important;
+.el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
 }

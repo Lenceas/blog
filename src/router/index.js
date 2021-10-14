@@ -5,7 +5,24 @@ Vue.use(VueRouter)
 
 const routes = [{
     path: '/',
-    redirect: '/login'
+    redirect: '/login',
+    component: () => import('../components/layout.vue'),
+    children: [{
+        path: '/admin',
+        name: 'admin',
+        component: () => import('../views/admin/index.vue')
+      },
+      {
+        path: '/admin/user',
+        name: 'user',
+        component: () => import('../views/admin/user.vue')
+      },
+      {
+        path: '/admin/setting',
+        name: 'setting',
+        component: () => import('../views/admin/setting.vue')
+      }
+    ]
   },
   {
     path: '/home',
@@ -21,11 +38,6 @@ const routes = [{
     path: '/register',
     name: 'register',
     component: () => import('../views/register.vue')
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    component: () => import('../views/admin/index.vue')
   }
 ]
 
