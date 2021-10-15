@@ -48,6 +48,19 @@ const getBaseUrl = () => {
   }
 }
 axios.defaults.baseURL = getBaseUrl()
+// 添加请求拦截器
+axios.interceptors.request.use(function (config) {
+  // 在发送请求之前做些什么
+  // 判断是否存在token,如果存在将每个页面header添加token
+  let tokeninfo = JSON.parse(sessionStorage.getItem('TokenInfo'))
+  if (tokeninfo) {
+    config.headers.common['Authorization'] = 'Bearer ' + tokeninfo.token
+  }
+  return config
+}, function (error) {
+  router.push('/login')
+  return Promise.reject(error)
+})
 
 new Vue({
   router,

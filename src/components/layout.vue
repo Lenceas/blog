@@ -71,6 +71,9 @@ export default {
       isCollapse: true,
     }
   },
+  created() {
+    this.getMenuTree()
+  },
   methods: {
     jumphome() {
       window.open('/home', '_blank')
@@ -82,6 +85,23 @@ export default {
     },
     errorHandler() {
       return true
+    },
+    getMenuTree() {
+      this.$api({
+        method: 'get',
+        url: '/Menu/GetList',
+        data: { }
+      }).then(res => {
+        //console.log(res.data)
+        let { status, msg, data } = res.data
+        if (status == 200) {
+          this.$msg.success('获取菜单列表成功')
+          console.log(data)
+        }
+        else {
+          this.$msg.error(msg)
+        }
+      })
     }
   }
 }
