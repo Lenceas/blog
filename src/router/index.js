@@ -54,7 +54,11 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login' || to.path === '/register' || to.path === '/home') return next()
   // 获取token
   const tokeninfo = JSON.parse(sessionStorage.getItem('TokenInfo'))
-  if (!tokeninfo) return next('/login')
+  if (!tokeninfo)
+  {
+    sessionStorage.clear()
+    return next('/login')
+  }
   next()
 })
 

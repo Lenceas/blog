@@ -78,14 +78,16 @@ export default {
             url: '/Auth/Login',
             params: { name: username.trim(), pwd: password.trim() }
           }).then(res => {
-            //console.log(res.data)
             let { status, msg, data } = res.data
             if (status == 200) {
               this.$msg.success('登录成功')
               sessionStorage.setItem('TokenInfo', JSON.stringify(data))
-              this.$router.push('/admin')
               let tokeninfo = JSON.parse(sessionStorage.getItem('TokenInfo'))
-              // console.log(tokeninfo.token)
+              var curTime = new Date()
+              var expiredate = new Date(curTime.setSeconds(curTime.getSeconds() + tokeninfo.expires_in))
+              sessionStorage.setItem('TokenExpire', expiredate)
+              sessionStorage.setItem('refreshtime', expiredate)
+              this.$router.push('/admin')
             }
             else {
               this.$msg.error(msg)
@@ -93,7 +95,6 @@ export default {
             }
           })
         } else {
-          //console.log('error submit!!')
           return false;
         }
       })

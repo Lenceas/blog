@@ -79,8 +79,8 @@ export default {
       window.open('/home', '_blank')
     },
     logout() {
-      sessionStorage.removeItem('TokenInfo') // 指定键删除
-      //sessionStorage.clear() // 删除所有数据
+      // sessionStorage.removeItem('TokenInfo') // 指定键删除
+      sessionStorage.clear() // 删除所有数据
       this.$router.push('/login')
     },
     errorHandler() {
@@ -90,16 +90,17 @@ export default {
       this.$api({
         method: 'get',
         url: '/Menu/GetList',
-        data: { }
+        data: {}
       }).then(res => {
-        //console.log(res.data)
-        let { status, msg, data } = res.data
-        if (status == 200) {
-          this.$msg.success('获取菜单列表成功')
-          console.log(data)
-        }
-        else {
-          this.$msg.error(msg)
+        if (res != null && res.data != null) {
+          let { status, msg, data } = res.data
+          if (status == 200) {
+            this.$msg.success('获取菜单列表成功')
+            console.log(data)
+          }
+          else {
+            this.$msg.error(msg)
+          }
         }
       })
     }
