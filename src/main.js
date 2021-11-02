@@ -49,6 +49,13 @@ const getBaseUrl = () => {
 }
 axios.defaults.baseURL = getBaseUrl()
 
+// 退出登录
+export const logOut = params => {
+  sessionStorage.clear()
+  router.push('/login')
+}
+
+// 保存刷新时间
 export const saveRefreshtime = params => {
   let nowtime = new Date()
   let TokenExpire = sessionStorage.getItem('TokenExpire')
@@ -116,12 +123,11 @@ axios.interceptors.response.use(
             } else {
               // 刷新token失败 清除token信息并跳转到登录页面
               Message.error({
-                message: '刷新token失败请重新登录',
+                message: msg,
                 duration: 2000,
                 center: true
               })
-              sessionStorage.clear()
-              router.push('/login')
+              logOut()
             }
           })
         } else {
@@ -131,8 +137,7 @@ axios.interceptors.response.use(
             duration: 2000,
             center: true
           })
-          sessionStorage.clear()
-          router.push('/login')
+          logOut()
         }
       }
       // 403 无权限
