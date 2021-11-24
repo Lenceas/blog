@@ -133,7 +133,7 @@ axios.interceptors.response.use(
         } else {
           // 返回 401，并且不在用户操作活跃期内 清除token信息并跳转到登录页面
           Message.error({
-            message: '登录状态超时请重新登录',
+            message: '登录超时请重新登录',
             duration: 2000,
             center: true
           })

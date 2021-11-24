@@ -5,12 +5,14 @@
       <!-- 侧边栏菜单区域 -->
       <el-menu class="home-menu" :default-active="this.$route.path" background-color="rgb(48, 65, 86)" text-color="#fff" router>
 
-        <el-menu-item index="/admin">
-          <i class="el-icon-s-home"></i>
-          <span slot="title">系统概况</span>
-        </el-menu-item>
+        <template v-for="m in this.menuList">
+          <el-menu-item :index="m.MenuUrl" :key="m.MenuUrl">
+            <i :class="m.MenuIcon"></i>
+            <span slot="title">{{m.MenuName}}</span>
+          </el-menu-item>
+        </template>
 
-        <el-submenu index="2">
+        <!-- <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-s-home"></i>
             <span>一级菜单</span>
@@ -25,17 +27,7 @@
               <span slot="title">三级菜单</span>
             </el-menu-item>
           </el-submenu>
-        </el-submenu>
-
-        <el-menu-item index="/admin/user">
-          <i class="el-icon-user"></i>
-          <span slot="title">用户中心</span>
-        </el-menu-item>
-
-        <el-menu-item index="/admin/setting">
-          <i class="el-icon-setting"></i>
-          <span slot="title">系统设置</span>
-        </el-menu-item>
+        </el-submenu> -->
 
       </el-menu>
     </el-aside>
@@ -69,10 +61,13 @@ export default {
   data() {
     return {
       isCollapse: true,
+      menuList: []
     }
   },
   created() {
-    this.getMenuTree()
+    if (this.menuList.length == 0) {
+      this.getMenuTree()
+    }
   },
   methods: {
     jumphome() {
@@ -96,7 +91,8 @@ export default {
           let { status, msg, data } = res.data
           if (status == 200) {
             this.$msg.success('获取菜单列表成功')
-            console.log(data)
+            this.menuList = data
+            console.log(this.menuList)
           }
           else {
             this.$msg.error(msg)

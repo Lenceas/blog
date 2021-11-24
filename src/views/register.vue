@@ -37,7 +37,7 @@ export default {
       } else {
         callback()
       }
-    };
+    }
     return {
       ruleForm: {
         username: '',
