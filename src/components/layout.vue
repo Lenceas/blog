@@ -79,8 +79,8 @@ export default {
       window.open('/home', '_blank')
     },
     logout() {
-      // sessionStorage.removeItem('TokenInfo') // 指定键删除
-      sessionStorage.clear() // 删除所有数据
+      // localStorage.removeItem('TokenInfo') // 指定键删除
+      localStorage.clear() // 删除所有数据
       this.$router.push('/login')
     },
     errorHandler() {

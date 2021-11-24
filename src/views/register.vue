@@ -82,9 +82,9 @@ export default {
             let { status, msg, data } = res.data
             if (status == 200) {
               this.$msg.success(msg)
-              sessionStorage.setItem('TokenInfo', JSON.stringify(data))
+              localStorage.setItem('TokenInfo', JSON.stringify(data))
               this.$router.push('/login')
-              let tokeninfo = JSON.parse(sessionStorage.getItem('TokenInfo'))
+              let tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
               //console.log(tokeninfo)
             }
             else {

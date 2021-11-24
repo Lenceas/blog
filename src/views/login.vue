@@ -81,12 +81,12 @@ export default {
             let { status, msg, data } = res.data
             if (status == 200) {
               this.$msg.success('登录成功')
-              sessionStorage.setItem('TokenInfo', JSON.stringify(data))
-              let tokeninfo = JSON.parse(sessionStorage.getItem('TokenInfo'))
+              localStorage.setItem('TokenInfo', JSON.stringify(data))
+              let tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
               var curTime = new Date()
               var expiredate = new Date(curTime.setSeconds(curTime.getSeconds() + tokeninfo.expires_in))
-              sessionStorage.setItem('TokenExpire', expiredate)
-              sessionStorage.setItem('refreshtime', expiredate)
+              localStorage.setItem('TokenExpire', expiredate)
+              localStorage.setItem('refreshtime', expiredate)
               this.$router.push('/admin')
             }
             else {
