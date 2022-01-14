@@ -123,7 +123,7 @@ export default {
         if (res != null && res.data != null) {
           let { status, msg, data } = res.data
           if (status == 200) {
-            this.$msg.success('获取菜单列表成功')
+            this.$msg.success('获取菜单列表成功！')
             this.menuList = data
             //console.log(this.menuList)
           }

@@ -133,7 +133,7 @@ axios.interceptors.response.use(
         } else {
           // 返回 401，并且不在用户操作活跃期内 清除token信息并跳转到登录页面
           Message.error({
-            message: '登录超时请重新登录',
+            message: '登录超时请重新登录！',
             duration: 2000,
             center: true
           })
@@ -143,7 +143,7 @@ axios.interceptors.response.use(
       // 403 无权限
       if (error.response.status == 403) {
         Message.error({
-          message: '失败！该操作无权限',
+          message: '失败！该操作无权限！',
           duration: 2000,
           center: true
         })

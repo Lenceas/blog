@@ -80,7 +80,7 @@ export default {
           }).then(res => {
             let { status, msg, data } = res.data
             if (status == 200) {
-              this.$msg.success('登录成功')
+              this.$msg.success('登录成功！')
               localStorage.setItem('TokenInfo', JSON.stringify(data))
               let tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
               var curTime = new Date()
