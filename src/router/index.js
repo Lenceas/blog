@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 
 const routes = [{
     path: '/',
-    redirect: '/login',
+    redirect: '/home',
     component: () => import('../components/layout.vue'),
     children: [{
         path: '/admin',
@@ -51,15 +51,17 @@ router.beforeEach((to, from, next) => {
   // to 将要访问的路径
   // from 从哪个路径跳转而来
   // next 是一个函数,表示放行:  next() 放行  next('/login') 强制跳转
-  if (to.path === '/login' || to.path === '/register' || to.path === '/home') return next()
-  // 获取token
-  const tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
-  if (!tokeninfo)
-  {
-    localStorage.clear()
-    return next('/login')
+  if (to.path == '/login' || to.path == '/register' || to.path == '/home')
+    return next()
+  else {
+    // 获取token
+    const tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
+    if (!tokeninfo) {
+      localStorage.clear()
+      return next('/login')
+    }
+    next()
   }
-  next()
 })
 
 export default router

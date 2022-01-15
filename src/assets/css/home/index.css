@@ -1,21 +1,22 @@
 .home-main {
-    background-color: #e9eef3;
-    color: #333;
-    text-align: center;
-    line-height: 100%;
-    padding: 0px 0px;
-    width: 100%;
-    height: inherit;
-    position: relative;
-    margin: 0 auto;
-    background: #56514d url(../../images/loginbg.jpg) no-repeat center center;
+  background-color: #fff;
+  padding: 0px 0px;
+  width: 100%;
+  margin: 0 auto;
+  background: url(../../images/blog-home-bg.png) no-repeat center center;
+  background-size: 100% 100%;
 }
 
-.home-cmain{
-    height: 90%;
+.home-cmain {
+  height: 95%;
 }
 
-.el-footer{
-    height: 10%;
-    padding-top: 20px;
+.el-footer {
+  text-align: center;
+  padding: 0px 0px !important;
+  height: 5% !important;
+}
+
+.el-link.el-link--primary {
+  color: #fff;
 }
