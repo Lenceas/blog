@@ -55,18 +55,10 @@ export default {
   name: 'home-layout',
   data() {
     return {
-      showMenuList: false,// 头部菜单展开收起开关
       searchKey: ''
     };
   },
   methods: {
-    toggle(id) {
-      if (id === 1) {
-        this.showMenuList = !this.showMenuList
-      } else {
-        this.showMissionList2 = !this.showMissionList2
-      }
-    },
     search(searchKey) {
       if (searchKey) {
         //console.log("searchKey:", searchKey)
