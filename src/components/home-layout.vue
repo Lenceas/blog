@@ -9,7 +9,7 @@
             <el-col class="home-top-left" :span="6"><span class="home-top-left-span">卢杰晟的个人博客</span></el-col>
             <el-col class="home-top-middle" :span="12">
               <el-menu :router="true" class="home-top-middle-menu" mode="horizontal" text-color="#0B0B22">
-                <el-menu-item index="/">博客首页</el-menu-item>
+                <el-menu-item index="/home">博客首页</el-menu-item>
                 <el-menu-item index="/">博文日记</el-menu-item>
                 <el-menu-item index="/">文摘畅读</el-menu-item>
                 <el-menu-item index="/">我的相册</el-menu-item>
@@ -55,10 +55,18 @@ export default {
   name: 'home-layout',
   data() {
     return {
+      showMenuList: false,// 头部菜单展开收起开关
       searchKey: ''
     };
   },
   methods: {
+    toggle(id) {
+      if (id === 1) {
+        this.showMenuList = !this.showMenuList
+      } else {
+        this.showMissionList2 = !this.showMissionList2
+      }
+    },
     search(searchKey) {
       if (searchKey) {
         //console.log("searchKey:", searchKey)

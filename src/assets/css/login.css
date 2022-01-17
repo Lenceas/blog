@@ -19,6 +19,7 @@
     height: inherit;
     position: relative;
     margin: 0 auto;
+    padding: 0px 0px;
     background: #56514d url(../images/blog-home-bg.png) no-repeat center center;
     background-size: 100% 100%;
 }
