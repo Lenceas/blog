@@ -20,6 +20,7 @@
     position: relative;
     margin: 0 auto;
     background: #56514d url(../images/blog-home-bg.png) no-repeat center center;
+    background-size: 100% 100%;
 }
 
 .box-card {
@@ -27,7 +28,7 @@
     background-color: rgba(0, 0, 0, 0.3);
     height: 300px;
     position: absolute;
-    left: 75%;
+    left: 85%;
     top: 50%;
     margin: -200px 0 0 -200px;
 }
