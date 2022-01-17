@@ -1,0 +1,84 @@
+.home-main {
+  background-color: #fff;
+  padding: 0px 0px;
+  width: 100%;
+  margin: 0 auto;
+  background: url(../../images/blog-home-bg.png) no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.home-cmain {
+  height: auto;
+  padding: 0px 0px;
+  margin: 0 auto;
+}
+
+.el-footer {
+  text-align: center;
+  padding: 0px 0px !important;
+  height: 66px !important;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.el-link.el-link--primary {
+  color: #fff;
+  opacity: 0.7;
+}
+
+.hfbq {
+  font-size: 14px;
+  color: #fff;
+  opacity: 0.7;
+}
+
+.blog-address {
+  color: #fff;
+}
+
+.home-top {
+  background-color: #fff;
+  opacity: 0.5;
+  padding: 0px 0px;
+  margin: 0 auto;
+}
+
+.home-body {
+  padding: 0px 0px;
+  margin: 0 auto;
+}
+
+.home-top-left {
+  opacity: 0;
+  padding: 0px 0px;
+  margin: 0 auto;
+}
+
+.home-top-right {
+  padding: 0px 0px;
+  margin: 0 auto;
+  height: 100% !important;
+}
+
+.el-menu.el-menu--horizontal {
+  border-bottom: solid 0px #e6e6e6 !important;
+}
+
+.el-menu-item {
+  font-size: 20px !important;
+}
+
+.el-input__inner {
+  height: 60px !important;
+  line-height: 60px !important;
+  padding: 5px 15px !important;
+}
+
+.home-footer-links{
+  background-color: #fff;
+  opacity: 0.7;
+  color: black;
+  height: 20px !important;
+  padding: 0px 0px;
+}
