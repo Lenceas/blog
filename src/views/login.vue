@@ -81,6 +81,7 @@ export default {
           }).then(res => {
             let { status, msg, data } = res.data
             if (status == 200) {
+              localStorage.clear()
               localStorage.setItem('TokenInfo', JSON.stringify(data))
               let tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
               var curTime = new Date()
