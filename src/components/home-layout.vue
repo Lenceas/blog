@@ -8,13 +8,25 @@
           <el-row>
             <el-col class="home-top-left" :span="6"><span class="home-top-left-span">卢杰晟的个人博客</span></el-col>
             <el-col class="home-top-middle" :span="12">
-              <el-menu :router="true" class="home-top-middle-menu" mode="horizontal" text-color="#0B0B22">
-                <el-menu-item index="/home">博客首页</el-menu-item>
-                <el-menu-item index="/">博文日记</el-menu-item>
-                <el-menu-item index="/">文摘畅读</el-menu-item>
-                <el-menu-item index="/">我的相册</el-menu-item>
-                <el-menu-item index="/">我的视频</el-menu-item>
-                <el-menu-item index="/">个人简历</el-menu-item>
+              <el-menu :default-active="activeIndex" :router="true" class="home-top-middle-menu" mode="horizontal" @select="handleSelect" text-color="#0B0B22">
+                <el-col :span="4">
+                  <el-menu-item index="/home">博客首页</el-menu-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-menu-item index="/">博文日记</el-menu-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-menu-item index="/">文摘畅读</el-menu-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-menu-item index="/">我的相册</el-menu-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-menu-item index="/">我的视频</el-menu-item>
+                </el-col>
+                <el-col :span="4">
+                  <el-menu-item index="/">个人简历</el-menu-item>
+                </el-col>
               </el-menu>
             </el-col>
             <el-col class="home-top-right" :span="6">
@@ -37,7 +49,7 @@
           <el-button class="home-footer-links">WeChat</el-button>
         </el-tooltip>
         <el-tooltip content="18890550991" placement="top" effect="light">
-          <el-button class="home-footer-links">Tel</el-button>
+          <el-button class="home-footer-links">Phone</el-button>
         </el-tooltip>
         <el-tooltip content="2923280915" placement="top" effect="light">
           <el-button class="home-footer-links">QQ</el-button>
@@ -55,10 +67,14 @@ export default {
   name: 'home-layout',
   data() {
     return {
-      searchKey: ''
+      activeIndex: '/home',
+      searchKey: '',
     };
   },
   methods: {
+    handleSelect(key, keyPath) {
+      //console.log(key, keyPath);
+    },
     search(searchKey) {
       if (searchKey) {
         //console.log("searchKey:", searchKey)

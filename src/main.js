@@ -5,11 +5,14 @@ import store from './store'
 import axios from 'axios'
 import './assets/css/public/all.css'
 import ElementUI, {
-  Message
+  Message,
+  Notification
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI)
+
+// 消息提示
 Vue.prototype.$msg = function (msg) {
   return Message({
     message: msg,
@@ -38,6 +41,33 @@ Vue.prototype.$msg.error = function (msg) {
     center: true
   })
 }
+
+// 通知
+Vue.prototype.$notify = function (title, msg) {
+  return Notification({
+    title: title,
+    message: msg,
+  })
+}
+Vue.prototype.$notify.success = function (title, msg) {
+  return Notification.success({
+    title: title,
+    message: msg,
+  })
+}
+Vue.prototype.$notify.warning = function (title, msg) {
+  return Notification.warning({
+    title: title,
+    message: msg,
+  })
+}
+Vue.prototype.$notify.error = function (title, msg) {
+  return Notification.error({
+    title: title,
+    message: msg,
+  })
+}
+
 Vue.config.productionTip = false
 Vue.prototype.$api = axios
 const getBaseUrl = () => {

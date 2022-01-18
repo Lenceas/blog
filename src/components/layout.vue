@@ -3,7 +3,7 @@
     <!-- 左侧导航 start -->
     <el-aside class="home-aside">
       <!-- 侧边栏菜单区域 start -->
-      <el-menu class="home-menu" :default-active="this.$route.path" background-color="rgb(48, 65, 86)" text-color="#fff" router>
+      <el-menu class="home-menu" :default-active="this.$route.path" exact background-color="rgb(48, 65, 86)" text-color="#fff" router>
         <template v-for="m in this.menuList">
           <!-- 一级菜单 start -->
           <template v-if="m.SubMenuList.length>0">
@@ -65,18 +65,26 @@
     <el-container>
       <!-- 头部 start -->
       <el-header class="home-header">
-        <span>博客后台管理系统</span>
-        <el-dropdown style="height:100%">
-          <el-avatar class="el-dropdown-link" :size="50" @error="errorHandler">
-            <img src="../../src/assets/images/my-header.jpg" />
-          </el-avatar>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-monitor" @click.native="jumphome">博客首页</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-back" @click.native="logout">退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <!--  -->
-        <!-- 面包屑 -->
+        <el-row :gutter="24" style="width:100%;height:100%;">
+          <el-col :span="3" style="height:100%;">博客后台管理系统</el-col>
+          <el-col :span="16" style="height:100%;">
+            <!-- 面包屑 -->
+            <el-breadcrumb class="home-header-breadcrumb" separator-class="el-icon-arrow-right">
+              <el-breadcrumb-item v-for="item in this.breadcrumbList" :key="item.path" :to="item.path">{{item.meta.title}}</el-breadcrumb-item>
+            </el-breadcrumb>
+          </el-col>
+          <el-col :span="3" style="height:100%;float:right;text-align:right;">
+            <el-dropdown style="height:100%;line-height:100%;">
+              <el-avatar style="height:55px;width:55px;" class="el-dropdown-link" :size="50" @error="errorHandler">
+                <img src="../../src/assets/images/my-header.jpg" />
+              </el-avatar>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item icon="el-icon-monitor" @click.native="jumphome">博客首页</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-back" @click.native="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </el-col>
+        </el-row>
       </el-header>
       <!-- 头部 end -->
       <!-- 主体部分 start -->
@@ -94,12 +102,22 @@ export default {
   data() {
     return {
       isCollapse: true,
-      menuList: []
+      menuList: [],
+      breadcrumbList: []
     }
   },
   created() {
     if (this.menuList.length == 0) {
       this.getMenuTree()
+    }
+    //console.log(this.$route.matched)
+    this.breadcrumbList = this.$route.matched
+  },
+  watch: {
+    $route(to, from) {
+      //console.log(to)
+      let matched = to.matched
+      this.breadcrumbList = matched
     }
   },
   methods: {
@@ -123,7 +141,7 @@ export default {
         if (res != null && res.data != null) {
           let { status, msg, data } = res.data
           if (status == 200) {
-            this.$msg.success('获取菜单列表成功！')
+            this.$msg.success('菜单初始化成功！')
             this.menuList = data
             //console.log(this.menuList)
           }
@@ -132,6 +150,9 @@ export default {
           }
         }
       })
+    },
+    getBreadcrumb() {
+
     }
   }
 }

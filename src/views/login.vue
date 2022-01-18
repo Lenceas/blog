@@ -53,7 +53,8 @@ export default {
           { validator: validatePsdReg, trigger: 'change' }
         ]
       },
-      fullscreenLoading: false
+      fullscreenLoading: false,
+      notifyPromise: Promise.resolve()
     }
   },
   created() {
@@ -80,7 +81,6 @@ export default {
           }).then(res => {
             let { status, msg, data } = res.data
             if (status == 200) {
-              this.$msg.success('登录成功！')
               localStorage.setItem('TokenInfo', JSON.stringify(data))
               let tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
               var curTime = new Date()
@@ -88,6 +88,9 @@ export default {
               localStorage.setItem('TokenExpire', expiredate)
               localStorage.setItem('refreshtime', expiredate)
               this.$router.push('/admin')
+              var minute = tokeninfo.expires_in / 60
+              this.notifyPromise = this.notifyPromise.then(() => { this.$notify.success('成功获取令牌，项目初始化中...') })
+              this.notifyPromise = this.notifyPromise.then(() => { this.$notify.success('令牌将在' + minute + '分钟后过期！') })
             }
             else {
               this.$msg.error(msg)
