@@ -69,7 +69,7 @@
           <el-col :span="3" style="height:100%;">博客后台管理系统</el-col>
           <el-col :span="16" style="height:100%;">
             <!-- 面包屑 -->
-            <el-breadcrumb class="home-header-breadcrumb" separator-class="el-icon-arrow-right">
+            <el-breadcrumb class="home-header-breadcrumb" separator-class="el-icon-loading">
               <el-breadcrumb-item v-for="item in this.breadcrumbList" :key="item.path" :to="item.path">{{item.meta.title}}</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>

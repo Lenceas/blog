@@ -3,21 +3,17 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    redirect: '/home'
-  },
-  {
+const routes = [{
     path: '/admin',
+    redirect: '/admin/index',
     name: 'admin',
     meta: {
       title: '系统面板'
     },
     component: () => import('../components/layout.vue'),
     children: [{
-        path: '/admin',
-        name: 'admin',
+        path: '/admin/index',
+        name: 'index',
         meta: {
           title: '系统面板'
         },
@@ -81,16 +77,22 @@ router.beforeEach((to, from, next) => {
   // to 将要访问的路径
   // from 从哪个路径跳转而来
   // next 是一个函数,表示放行:  next() 放行  next('/login') 强制跳转
-  if (to.path == '/login' || to.path == '/register' || to.path == '/' || to.path == '/home' || to.path == '/home/article')
-    return next()
-  else {
-    // 获取token
-    const tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
-    if (!tokeninfo) {
-      localStorage.clear()
-      return next('/login')
+  if (to.matched.length === 0) {
+    from.name ? next({
+      name: from.name
+    }) : next('/home')
+  } else {
+    if (to.path == '/login' || to.path == '/register' || to.path == '/' || to.path == '/home' || to.path == '/home/article')
+      return next()
+    else {
+      // 获取token
+      const tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
+      if (!tokeninfo) {
+        localStorage.clear()
+        return next('/login')
+      }
+      next()
     }
-    next()
   }
 })
 
