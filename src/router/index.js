@@ -10,7 +10,7 @@ const routes = [{
     meta: {
       title: '系统面板'
     },
-    component: () => import('../components/layout.vue'),
+    component: () => import('../components/admin-layout.vue'),
     children: [{
         path: '/admin/index',
         name: 'index',
@@ -74,6 +74,8 @@ const router = new VueRouter({
 
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
+  //console.log('挂载路由导航守卫 to', to)
+  //console.log('挂载路由导航守卫 from', from)
   // to 将要访问的路径
   // from 从哪个路径跳转而来
   // next 是一个函数,表示放行:  next() 放行  next('/login') 强制跳转
@@ -82,7 +84,7 @@ router.beforeEach((to, from, next) => {
       name: from.name
     }) : next('/home')
   } else {
-    if (to.path == '/login' || to.path == '/register' || to.path == '/' || to.path == '/home' || to.path == '/home/article')
+    if (to.path == '/login' || to.path == '/register' || to.path == '/' || to.path == '/home')
       return next()
     else {
       // 获取token

@@ -92,6 +92,8 @@ export default {
               var minute = tokeninfo.expires_in / 60
               this.notifyPromise = this.notifyPromise.then(() => { this.$notify.success('成功获取令牌，项目初始化中...') })
               this.notifyPromise = this.notifyPromise.then(() => { this.$notify.success('令牌将在' + minute + '分钟后过期！') })
+              this.$store.state.openTab = []
+              this.$store.state.activeIndex = '/admin/index'
             }
             else {
               this.$msg.error(msg)
