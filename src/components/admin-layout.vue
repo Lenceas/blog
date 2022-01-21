@@ -204,9 +204,7 @@ export default {
     },
     // tab标签点击时，切换相应的路由
     tabClick(tab) {
-      if (tab.name !== this.$store.state.activeIndex) {
-        this.$router.push({ path: tab.name })
-      }
+      this.$router.push({ path: tab.name })
     },
     // 移除tab标签
     tabRemove(targetName) {
