@@ -72,10 +72,14 @@ const router = new VueRouter({
   routes
 })
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+}
+
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
-  //console.log('挂载路由导航守卫 to', to)
-  //console.log('挂载路由导航守卫 from', from)
   // to 将要访问的路径
   // from 从哪个路径跳转而来
   // next 是一个函数,表示放行:  next() 放行  next('/login') 强制跳转

@@ -92,7 +92,7 @@ export const saveRefreshtime = params => {
   let refreshtime = localStorage.getItem('refreshtime')
   let lastRefreshtime = refreshtime ? new Date(refreshtime) : new Date(-1)
   let expiretime = new Date(Date.parse(TokenExpire))
-  let refreshCount = 1 //滑动系数
+  let refreshCount = 5 //滑动系数
   if (lastRefreshtime >= nowtime) {
     lastRefreshtime = nowtime > expiretime ? nowtime : expiretime
     lastRefreshtime.setMinutes(lastRefreshtime.getMinutes() + refreshCount)

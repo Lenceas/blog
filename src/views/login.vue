@@ -71,7 +71,6 @@ export default {
     },
     login(ruleForm) {
       this.$refs[ruleForm].validate((valid) => {
-        //console.log(valid)
         if (valid) {
           let { username, password } = this.ruleForm;
           this.$api({

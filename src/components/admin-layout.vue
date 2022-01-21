@@ -68,10 +68,11 @@
         <el-row :gutter="24" style="width:100%;height:100%;">
           <el-col :span="3" style="height:100%;">博客后台管理系统</el-col>
           <el-col :span="16" style="height:100%;">
-            <!-- 面包屑 -->
+            <!-- 面包屑 start -->
             <el-breadcrumb class="home-header-breadcrumb" separator-class="el-icon-loading">
               <el-breadcrumb-item v-for="item in this.breadcrumbList" :key="item.path" :to="item.path">{{item.meta.title}}</el-breadcrumb-item>
             </el-breadcrumb>
+            <!-- 面包屑 end -->
           </el-col>
           <el-col :span="3" style="height:100%;float:right;text-align:right;">
             <el-dropdown style="height:100%;line-height:100%;">
@@ -89,11 +90,13 @@
       <!-- 头部 end -->
       <!-- 主体部分 start -->
       <el-main class="home-main">
-        <el-tabs class="homa-main-tabs" v-model="this.$store.state.activeIndex" type="border-card" closable v-if="this.$store.state.openTab.length>=1" @tab-click="tabClick" @tab-remove="tabRemove">
+        <!-- 动态路由结合标签页 start -->
+        <el-tabs class="homa-main-tabs" v-model="$store.state.activeIndex" type="border-card" closable v-if="this.$store.state.openTab.length" @tab-click="tabClick" @tab-remove="tabRemove">
           <el-tab-pane :key="item.name" v-for="item in this.$store.state.openTab" :label="item.title" :name="item.route">
             <router-view />
           </el-tab-pane>
         </el-tabs>
+        <!-- 动态路由结合标签页 start -->
       </el-main>
       <!-- 主体部分 end -->
     </el-container>
@@ -114,7 +117,6 @@ export default {
     if (this.menuList.length == 0) {
       this.getMenuTree()
     }
-    //console.log(this.$route.matched)
     this.breadcrumbList = this.$route.matched
   },
   mounted() {
@@ -122,42 +124,31 @@ export default {
     // 当前路由不是首页时，添加首页以及另一页到store里，并设置激活状态
     // 当当前路由是首页时，添加首页到store，并设置激活状态
     if (this.$route.path !== '/admin' && this.$route.path !== '/admin/index') {
-      console.log('1')
-      //this.$store.commit('add_tabs', { route: '/admin/index', name: 'index', title: '系统面板' })
       this.$store.commit('add_tabs', { route: this.$route.path, name: this.$route.name, title: this.$route.meta.title })
       this.$store.commit('set_active_index', this.$route.path)
     }
     else {
-      console.log('2')
       this.$store.commit('add_tabs', { route: '/admin/index', name: 'index', title: '系统面板' })
       this.$store.commit('set_active_index', '/admin/index')
     }
   },
   watch: {
     $route(to, from) {
-      console.log('to', to)
       let matched = to.matched
       this.breadcrumbList = matched
-  
+
       // 判断路由是否已经打开
       // 已经打开的，将其置为active
       // 未打开的，将其放入队列里
       let flag = false
       for (let item of this.$store.state.openTab) {
-        console.log('item.name', item.name)
-        console.log('to.name', to.name)
         if (item.name === to.name) {
-          console.log('to.path', to.path)
           this.$store.commit('set_active_index', to.path)
           flag = true
           break
         }
       }
-      console.log('flag', flag);
       if (!flag) {
-        console.log('to.path', to.path)
-        console.log('to.name', to.name)
-        console.log('to.meta.title', to.meta.title)
         this.$store.commit('add_tabs', { route: to.path, name: to.name, title: to.meta.title })
         this.$store.commit('set_active_index', to.path)
       }
@@ -168,11 +159,27 @@ export default {
       window.open('/home', '_blank')
     },
     logout() {
-      this.$store.state.openTab = []
-      this.$store.state.activeIndex = '/admin/index'
-      // localStorage.removeItem('TokenInfo') // 指定键删除
-      localStorage.clear() // 删除所有数据
-      this.$router.push('/login')
+      var tokeninfo = JSON.parse(localStorage.getItem('TokenInfo'))
+      this.$api({
+        method: 'post',
+        url: '/Auth/Logout',
+        params: {
+          token: tokeninfo.token
+        }
+      }).then(res => {
+        let { status, msg, data } = res.data
+        console.log('res.data', res.data);
+        if (status == 200) {
+          this.$store.state.openTab = []
+          this.$store.state.activeIndex = '/admin/index'
+          // localStorage.removeItem('TokenInfo') // 指定键删除
+          localStorage.clear() // 删除所有数据
+          this.$router.push('/login')
+        }
+        else {
+          this.$msg.error(msg)
+        }
+      })
     },
     errorHandler() {
       return true
@@ -188,7 +195,6 @@ export default {
           if (status == 200) {
             this.$msg.success('菜单初始化成功！')
             this.menuList = data
-            //console.log(this.menuList)
           }
           else {
             this.$msg.error(msg)
@@ -198,34 +204,23 @@ export default {
     },
     // tab标签点击时，切换相应的路由
     tabClick(tab) {
-      console.log('tab', tab.name)
-      console.log('active', this.$store.state.activeIndex)
       if (tab.name !== this.$store.state.activeIndex) {
-        this.$router.push({ path: tab.name }).catch(err => {
-          console.log('输出报错1', err);
-        })
+        this.$router.push({ path: tab.name })
       }
     },
     // 移除tab标签
     tabRemove(targetName) {
-      console.log('tabRemove', targetName)
       // 首页不删
       if (targetName == '/admin' || targetName == '/admin/index') { return }
       this.$store.commit('delete_tabs', targetName)
-      //console.log('this.$store.state.activeIndex', this.$store.state.activeIndex);
       if (this.$store.state.activeIndex === targetName) {
         // 设置当前激活的路由
         if (this.$store.state.openTab && this.$store.state.openTab.length >= 1) {
-          console.log('================', this.$store.state.openTab[this.$store.state.openTab.length - 1].route)
           this.$store.commit('set_active_index', this.$store.state.openTab[this.$store.state.openTab.length - 1].route)
-          this.$router.push({ path: this.$store.state.activeIndex }).catch(err => {
-            console.log('输出报错', err);
-          })
+          this.$router.push({ path: this.$store.state.activeIndex })
         }
         else {
-          this.$router.push({ path: '/admin/index' }).catch(err => {
-            console.log('输出报错', err);
-          })
+          this.$router.push({ path: '/admin/index' })
         }
       }
     }
